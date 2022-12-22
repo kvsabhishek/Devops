@@ -1,0 +1,22 @@
+S3 - Simple Storage Service
+
+S3 Storage type - Object storage Service 
+
+Object storage vs. file storage vs. block storage :
+-Object storage takes each piece of data and designates it as an object. Data is kept in separate storehouses versus files in folders and is bundled with associated metadata and a unique identifier to form a storage pool.
+-File storage stores data as a single piece of information in a folder to help organize it among other data. This is also called hierarchical storage, imitating the way that paper files are stored. When you need access to data, your computer system needs to know the path to find it.
+-Block storage takes a file apart into singular blocks of data and then stores these blocks as separate pieces of data. Each piece of data has a different address, so they don't need to be stored in a file structure.
+
+Features of S3:
+-Storage Classes - Amazon S3 offers a range of storage classes designed for different use cases.
+-Storage Management - Amazon S3 has storage management features that you can use to manage costs, meet regulatory requirements, reduce latency, and save multiple distinct copies of your data for compliance requirements.
+	- S3 Lifecycle - Configure a lifecycle policy to manage your objects and store them cost effectively throughout their lifecycle
+	- S3 Object Lock - Prevent Amazon S3 objects from being deleted or overwritten for a fixed amount of time or indefinitely(Write-once-Read-many)
+	- S3 Replication - Replicate objects and their respective metadata and object tags to one or more destination buckets in the same or different AWS Regions for reduced latency, compliance, security, and other use cases.
+	- S3 Batch Operations - Manage billions of objects at scale with a single S3 API request or a few clicks in the Amazon S3 console
+-Access Management - Amazon S3 provides features for auditing and managing access to your buckets and objects. By default, S3 buckets and the objects in them are private.
+	- S3 Block public access - Block public access to S3 buckets and objects. By default, Block Public Access settings are turned on at the account and bucket level.
+	- IAM - With IAM permissions users in our account can have access to our S3
+	- Bucket Policies - Similar to IAM we can configure resource-based permissions for S3 bucket and objects in it.
+	- Acsess Control List(ACL) - Grant read and write permissions for individual buckets and objects to authorized users. This can also be done using IAM, Buck Policies(Recommended).
+	- 
