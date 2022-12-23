@@ -1,0 +1,47 @@
+Storage types :
+    - Block Storage
+    - File Storage
+    - Object Storage
+
+Block Storage :
+    - In Block storage data is split into fixed blocks of data and then stored seperately with unique identifier. When a user retrieves a block, the storage system             reassembles the blocks into a single unit.
+    - Block storage can be connected to single instance(host) at a time.
+    - Pros:
+      - Fast: When all blocks are stored locally or close together, block storage has a high performance with low latency for data retrieval, making it a common choice                 for business-critical data.
+      - Reliable: Because blocks are stored in self-contained units, block storage has a low fail rate.
+      - Easy to modify: Changing a block does not require creating a new block; instead, a new version is created.
+    - Cons
+      - Lack of metadata: Block storage does not contain metadata, making it less usable for unstructured data storage.
+      - Not searchable: Large volumes of block data quickly become unmanageable because of limited search capabilities.
+      - High cost: Purchasing additional block storage is expensive and often cost-prohibitive at a high scale.
+    - AWS Block Storage Services : EBS(Elastic Block Storage), Instance Store
+File Storage : 
+    - File storage is when all the data is saved together in a single file with a file extension type that’s determined by the application used to create the file or           file type, such as .jpg, .docx or .txt.
+    - File storage is similar to shares. We can map it to as many instances as we want.
+    - Pros
+      - Easy to access on a small scale: With a small-to-moderate number of files, users can easily locate and click on a desired file, and the file with the data             opens. Users then save the file to the same or a different location when they’re finished with it.
+      - Familiar to most users: As the most common storage type for end users, most people with basic computer skills can easily navigate file storage with little             assistance or additional training.
+      - Users can manage their own files: Using a simple interface, end users can create, move and delete their files.
+      - Allows access rights/file sharing/file locking to be set at user level: Users and administrators can set a file as write (meaning users can make changes to the         file), read-only (users can only view the data) or locked (specific users cannot access the file even as read only). Files can also be password-protected.
+    - Cons
+      - Challenging to manage and retrieve large numbers of files: While hierarchical storage works well for, say, 20 folders with 10 subfolders each, file management         becomes increasingly complicated as the number of folders, subfolders and files increases. As the volume grows, the amount of time for the search feature to           find a desired file increases and becomes a significant waste of time spread over employees throughout an organization.
+      - Hard to work with unstructured data: While it’s possible to save unstructured data like text, mobile activity, social media posts and Internet of Things (IoT)         sensor data in file storage, it is typically not the best option for unstructured data storage, especially in large amounts.
+      - Becomes expensive at large scales: When the amount of storage space on devices and networks reaches capacity, additional hardware devices must be purchased.
+    - AWS File Storage Services : EFS(Elastic File Storage) - For Linux, FSx - For Windows.
+
+Object Storage : 
+    - Object storage is a system that divides data into separate, self-contained units that are re-stored in a flat environment, with all objects at the same level.         There are no folders or sub-directories like those used with file storage. Additionally, object storage does not store all data together in a single file.             Objects also contain metadata, which is information about the file that helps with processing and usability. Users can set the value for fixed-key metadata with       object storage, or they can create both the key and value for custom metadata associated with an object.
+    - Instead of using a file name and path to access an object, each object has a unique number. Objects can be stored locally on computer hard drives and cloud             servers. However, unlike with file storage, you must use an Application Programming Interface (API) to access and manage objects.
+    - Pros
+      - Handles large amounts of unstructured data: The format of object storage allows for easily storing and managing a high volume of unstructured data, which is           becoming increasingly important with artificial intelligence, machine learning and big data analytics.
+      - Affordable consumption model: Instead of paying in advance for a set amount of storage space, as is common with file storage, you purchase only for the object         storage you need.
+      - Unlimited scalability: Because object storage uses a consumption model, you can add as much additional storage as you need — even petabytes or more.
+      - Uses metadata: Because the metadata is stored with the objects, users can quickly gain value from data and more easily retrieve the object they need.
+      - Advanced search capabilities: Object storage enables users to search for metadata, object contents and other properties.
+      - Cons
+      - Cannot lock files: All users with access to the cloud, network or hardware device can access the objects stored there.
+      - Slower performance than other storage types: The file format requires more processing time than file storage and block storage.
+      - Cannot modify a single portion of a file: Once an object is created, you cannot change the object; you can only recreate a new object.
+    - AWS Object Storage Service : AWS S3 
+    
+    
