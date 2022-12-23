@@ -44,4 +44,5 @@ Object Storage :
       - Cannot modify a single portion of a file: Once an object is created, you cannot change the object; you can only recreate a new object.
     - AWS Object Storage Service : AWS S3 
     
+Ref Guide : https://www.ibm.com/cloud/blog/object-vs-file-vs-block-storage 
     
