@@ -1,0 +1,15 @@
+Cloud Trail : Every activity performed in AWS account is recorded in a CloudTrail event. By default it is enabled in every AWS account. 
+
+Trail : A trail is a configuration that enables delivery of events to an Amazon S3 bucket that you specify. There are 2 types of trails.
+  - A trail that applies to all regions
+  - A trail that applies to one region
+- By default trail applies to all regions, if we want to specify to one particular region then we can configure with the help of AWS CLI.
+- All logs stored to S3 are by default encrypted using Amazon S3 server-side encryption (SSE). We can also choose to encrypt your log files with an AWS Key Management Service (AWS KMS).
+
+Event : An event in CloudTrail is the record of an activity in an AWS account. This can be any action taken by a user, role, or service that is monitorable by CloudTrail.
+- There are 3 types of events.
+    - Management events - Management events provide information about management operations that are performed on resources in your AWS account. These are also known as control plane operations.
+    - Data events - Data events provide information about the resource operations performed on or in a resource. These are also known as data plane operations.
+    - CloudTrail Insights events - CloudTrail Insights events capture unusual API call rate or error rate activity in your AWS account. Insights events provide relevant information, such as the associated API, error code, incident time, and statistics, that help you understand and act on unusual activity.
+
+CloudTrail Lake : CloudTrail Lake lets you run fine-grained SQL-based queries on your events. ou can keep the event data in an event data store for up to seven years and run queries
