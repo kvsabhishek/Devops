@@ -27,7 +27,7 @@ File Storage :
       - Challenging to manage and retrieve large numbers of files: While hierarchical storage works well for, say, 20 folders with 10 subfolders each, file management         becomes increasingly complicated as the number of folders, subfolders and files increases. As the volume grows, the amount of time for the search feature to           find a desired file increases and becomes a significant waste of time spread over employees throughout an organization.
       - Hard to work with unstructured data: While it’s possible to save unstructured data like text, mobile activity, social media posts and Internet of Things (IoT)         sensor data in file storage, it is typically not the best option for unstructured data storage, especially in large amounts.
       - Becomes expensive at large scales: When the amount of storage space on devices and networks reaches capacity, additional hardware devices must be purchased.
-    - AWS File Storage Services : EFS(Elastic File Storage) - For Linux, FSx - For Windows.
+    - AWS File Storage Services : EFS(Elastic File Storage) - For Linux, FSx - For both Windows and Linux.
 
 Object Storage : 
     - Object storage is a system that divides data into separate, self-contained units that are re-stored in a flat environment, with all objects at the same level.         There are no folders or sub-directories like those used with file storage. Additionally, object storage does not store all data together in a single file.             Objects also contain metadata, which is information about the file that helps with processing and usability. Users can set the value for fixed-key metadata with       object storage, or they can create both the key and value for custom metadata associated with an object.
