@@ -47,6 +47,11 @@ docker rmi <image_name>
 docker run <image_name>
 ```
 
+* To run a docker image with specific container name
+```
+docker run <image_name> --name <container_name>
+```
+
 * To get list of all running containers
 ```
 docker ps
