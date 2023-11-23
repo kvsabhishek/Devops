@@ -1,4 +1,4 @@
-## Jenkins pipeline syntax ##
+# Jenkins pipeline syntax #
 ```
 pipeline {
     agent any
