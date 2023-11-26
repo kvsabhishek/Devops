@@ -1,36 +1,40 @@
 # EKS
 
-* ## Create EKS cluster using eksctl
+* ### Create EKS cluster using eksctl
 ```
 eksctl create cluster --config-file=kube-cluster.yaml
 ```
 
-* ## Delete EKS cluster
+* ### Delete EKS cluster
 ```
 eksctl delete cluster --config-file=kube-cluster.yaml
 ```
 
-## To Check if you have access to create a service in k8s
+# Authentication 
+
+### To Check if you have access to create a service in k8s
 ```
 kubectl auth can-i create <service_name>
 ```
 
-## To check for specific user
+### To check for specific user
 ```
 kubectl auth can-i create <service_name> --as <user_name>
 ```
+
+# Cluster level
 
 ## To check all the services and their api versions 
 ```
 kubctl api-resources
 ```
 
-## To see all the fields supported to write a manifest file of a service 
+### To see all the fields supported to write a manifest file of a service 
 ```
 kubectl explain <service_name>
 ```
 
-## To create a pod manifest file
+### To create a pod manifest file
 ```
 kubectl run <pod_name> --image=<image_name> --dry-run=client -o yaml > My_ManiestFile.yml
 ```

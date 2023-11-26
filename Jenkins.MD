@@ -373,4 +373,67 @@ pipeline {
 }
 ```
 # SONARQUBE #
+Sonarqube is used for static source code analysis.
+
+Scanning Types:
+* Static source code analysis --> Checks the source code, analyse it and give recomendations.(__Sonarqube)__
+* Static application security testing --> Checks the code based on security perspective.(__Fortify__)
+* Dynamic application security testing --> Mocks the process of the code at runtime, mocks the process of hacking.
+* Open source library scanning --> Libraries you are getting from internet are scanned.(__Nexus IQ__)
+* Image Scan --> Scan docker images.(__Twistlock__)
+```
+ pipeline {
+    agent any
+    stages {
+        stage('Sonar Scan') {
+            steps {
+                sh 'sonar-scanner'
+            }
+        }
+    }
+ }
+```
+
+# NEXUS #
+Used to store artifacts.
+To push artifacts to nexus need to install plugin __Nexus Artifactory Uploader__.
+```
+pipeline {
+    agent any
+    stages {
+        stage('build') {
+            steps {
+                sh 'zip -r catalouge.zip ./* --exclude=.git --exclude=.zip'
+            }
+        }
+
+        stage('Publish Artifact to Nexus') {
+            steps {
+                nexusArtifactUploader(
+                    nexusVersion: 'nexus3',
+                    protocol: 'http',
+                    nexusUrl: '52.71.253.240:8081/',
+                    groupId: 'com.roboshop',
+                    version: 1.0.0,
+                    repository: 'Catalogue',
+                    credentialsId: 'CredentialsId',
+                    artifacts: [
+                        [artifactId: Catalogue,
+                        classifier: '',
+                        file: 'catalogue-' + version + '.zip',
+                        type: 'zip']
+                    ]
+                )
+            }
+        }
+    }
+
+    post{
+        always{
+            echo 'Cleaning Workspace'
+            deleteDir() //Once deployment is done it is mandate to clean the wrokspace directory as a best practice.
+        }
+    }
+}
+```
 

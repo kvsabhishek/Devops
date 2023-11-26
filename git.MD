@@ -1,0 +1,1 @@
+![git stages](images/git_stages.drawio)

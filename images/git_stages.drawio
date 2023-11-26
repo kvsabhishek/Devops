@@ -1,0 +1,40 @@
+<mxfile host="app.diagrams.net" modified="2023-11-26T08:30:14.860Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="3X6bD0zb9YEYGJF1w6S7" version="22.1.4" type="device">
+  <diagram name="Page-1" id="JIkwYriWzjDiMdymM9Bp">
+    <mxGraphModel dx="849" dy="2271" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ckWQQIhMa58pXtliGtbR-9" value="git add" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;fontSize=20;verticalAlign=bottom;fontStyle=1" edge="1" parent="1" source="ckWQQIhMa58pXtliGtbR-2" target="ckWQQIhMa58pXtliGtbR-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ckWQQIhMa58pXtliGtbR-2" value="&lt;b&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;IDE(VS Code)&lt;/font&gt;&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="120" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="ckWQQIhMa58pXtliGtbR-10" value="git commit" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;fontSize=20;fontStyle=1;verticalAlign=bottom;" edge="1" parent="1" source="ckWQQIhMa58pXtliGtbR-3" target="ckWQQIhMa58pXtliGtbR-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ckWQQIhMa58pXtliGtbR-3" value="&lt;font size=&quot;1&quot; style=&quot;&quot;&gt;&lt;b style=&quot;font-size: 18px;&quot;&gt;Staging Area&lt;/b&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="280" width="120" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="ckWQQIhMa58pXtliGtbR-12" value="&lt;b&gt;&lt;font style=&quot;font-size: 20px;&quot;&gt;git push&lt;/font&gt;&lt;/b&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;verticalAlign=bottom;" edge="1" parent="1" source="ckWQQIhMa58pXtliGtbR-4" target="ckWQQIhMa58pXtliGtbR-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ckWQQIhMa58pXtliGtbR-4" value="&lt;font size=&quot;1&quot; style=&quot;&quot;&gt;&lt;b style=&quot;font-size: 18px;&quot;&gt;Local Repo&lt;/b&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="280" width="120" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="ckWQQIhMa58pXtliGtbR-13" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;git pull / git clone&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontStyle=1;fontSize=19;verticalAlign=bottom;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="ckWQQIhMa58pXtliGtbR-11" target="ckWQQIhMa58pXtliGtbR-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="720" y="490" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="940" y="660" />
+              <mxPoint x="100" y="660" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ckWQQIhMa58pXtliGtbR-11" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;b style=&quot;font-size: 18px;&quot;&gt;Remote Repo(GitHub, BitBucket)&lt;/b&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="880" y="280" width="120" height="280" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
