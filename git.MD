@@ -17,7 +17,7 @@ git checkout <branch_name_you_want_to_move>
 MASTER -> Main branch(Long lived)<br/>
 FEATURE -> Developement branch(Short lived)
 
-We protect the Master branch. No one can directly make commits in Master branch. Only changes in Master branch can be done through PR with minimum 3 approvals.
+We protect the Master branch. No one can directly make commits in Master branch. Only changes in Master branch can be done through PR with minimum 3 approvals.</br>
 ![pr types](images/git_branch_strategy.png)
 
 # PULL REQUEST #
@@ -27,11 +27,11 @@ Getting code from one branch to another branch.
 ![pr types](images/git_pr_types.png)
 
 1. #### Create Merge commit: ####
-    When we merge the code from Feature branch to Master we will get new commit id in the Master branch. All the __commit history from feature branch will also be preserved but those commits will not be part of Master branch__.
+    When we merge the code from Feature branch to Master we will get new commit id in the Master branch. All the __commit history from feature branch will also be preserved but those commits will not be part of Master branch__.</br>
     ![pr merge](images/git_pr_create_merge_commit.png)
 
 2. #### Rebase and merge: ####
-    When we merge the code from Feature to Master branch no new commit will be created in Master bramch. Commit history will not be preserved. All __commits from Feature branch will be copied to Master branch but commit ids will be changed.__.
+    When we merge the code from Feature to Master branch no new commit will be created in Master bramch. Commit history will not be preserved. All __commits from Feature branch will be copied to Master branch but commit ids will be changed.__.</br>
     ![pr rebase](images/git_pr_rebase_and_merge.png)
 
     ### Difference between Merge and Rebase ###
@@ -46,7 +46,7 @@ Getting code from one branch to another branch.
     | Suitable when many people are working on the project simultaneously. | Suitable for small workgroups. |
     
 3. #### Squash and merge: ####
-    When we merge the code from Feature to Master branch, commit history from feature branch is __merged/squashed into one single commit in Master branch__. Commit history is not preserved.
+    When we merge the code from Feature to Master branch, commit history from feature branch is __merged/squashed into one single commit in Master branch__. Commit history is not preserved.</br>
     ![pr squash](images/git_pr_squash_and_merge.png)
 
 # GIT CONFLICT #
@@ -62,7 +62,7 @@ If both persons changes are related with any of the below changes this will rise
 * Binary files
 * Structural conflicts
 
-__This will create a conflict while merging the PR. Since the repo he cloned is not same as the repo he is about to merge(Since another person has already made changes prior to him and changes are available in the repo).__
+__This will create a conflict while merging the PR. Since the repo he cloned is not same as the repo he is about to merge(Since another person has already made changes prior to him and changes are available in the repo).__</br>
 ![git conflict](images/git_conflict.png)
 
 ### The BEST Practice to avoid conflict while PR merge is to keep the repo always updated using git pull before pushing. ###
