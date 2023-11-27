@@ -62,7 +62,6 @@ If both persons changes are related with any of the below changes this will rise
 * Binary files
 * Structural conflicts
 
-__This will create a conflict while merging the PR. Since the repo he cloned is not same as the repo he is about to merge(Since another person has already made changes prior to him and changes are available in the repo).__</br>
 ![git conflict](images/git_conflict.png)
 
 ### The BEST Practice to avoid conflict while PR merge is to keep the repo always updated using git pull before pushing. ###
