@@ -70,6 +70,41 @@ pipeline {
 
 
 ## VARIABLES ##
+
+-  ### Script Variable ###    
+    In Jenkins, when you define variables using the def keyword, you are typically working with Groovy scripts.
+    ```
+    pipeline {
+        agent any
+
+        stages {
+            stage('Example') {
+                steps {
+                    script {
+                        // Define variables using def keyword
+                        def stringValue = "Hello, Jenkins!"
+                        def intValue = 42
+                        def floatValue = 3.14
+                        def booleanValue = true
+
+                        // You can also define lists and maps
+                        def listValue = [1, 2, 3]
+                        def mapValue = [key1: 'value1', key2: 'value2']
+
+                        // Print the values
+                        echo "String: ${stringValue}"
+                        echo "Integer: ${intValue}"
+                        echo "Float: ${floatValue}"
+                        echo "Boolean: ${booleanValue}"
+                        echo "List: ${listValue}"
+                        echo "Map: ${mapValue}"
+                    }
+                }
+            }
+        }
+    }
+
+    ```
 -  ### Environment Variables ###
     The environment directive specifies a sequence of key-value pairs which will be defined as environment variables for all steps, or stage-specific steps, depending on where the environment directive is located within the Pipeline.
     ```
@@ -225,6 +260,7 @@ pipeline {
             }
         }
     }
+}
 ```
 ## STEPS ##
 
@@ -372,6 +408,60 @@ pipeline {
     }
 }
 ```
+
+# UP STREAM & DOWN STRAM JOBS #
+If we want to trigger another pipeline if the triggered pipeline is success then we use this concept.
+JOB-A --> Triggered Job
+JOB-B --> If JOB-A is success then JOB-B should trigger. </br>
+
+__JOB-A is considered as the UP Stream job from JOB-B and JOB-B is considered as the downstream job for JOB-A__
+### UP STREAM ###
+```
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building the Upstream Job'
+                script {
+                    def params = [
+                        string(name: 'version', value: "1.0.2")
+                    ]
+                    writeFile(file: 'example.txt', text: 'This is an example file')
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            build job: '../downstream-job', propagate: true, wait: true, parameters: params //To call the dwonsteam job
+        }
+    }
+}
+```
+### DOWN STREAM ##
+```
+pipeline {
+    agent any
+    parameters{
+        string(name: 'version', defaultValue:'1.0.0', description: 'artifact version')
+    }
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building the Downstream Job'
+                script {
+                    def fileContent = readFile('../upstream-job/example.txt')
+                    echo "Content of the upstream file: ${fileContent}"
+                    echo "Artifact version: ${parms.version}"
+                }
+            }
+        }
+    }
+}
+```
 # SONARQUBE #
 Sonarqube is used for static source code analysis.
 
@@ -436,4 +526,51 @@ pipeline {
     }
 }
 ```
+Developers use package.json file where they will mention the version of the code. In above example artifact version in Fixed. To make it dynamic we need to read the version from package.json and use it.
 
+To read json file we need to install a plugin __Pipeline Utility Steps__
+### To read a value from JSON file inside pipeline ###
+```
+pipeline {
+    agent any
+    stages {
+        stage('build') {
+            steps {
+                sh 'zip -r catalouge.zip ./* --exclude=.git --exclude=.zip'
+            }
+        }
+
+        stage('Publish Artifact to Nexus') {
+            steps {
+                script {
+                    def packageJson = readJSON(file: 'package.json')
+                    def packageVersion = packageJson.version
+
+                    nexusArtifactUploader(
+                        nexusVersion: 'nexus3',
+                        protocol: 'http',
+                        nexusUrl: '52.71.253.240:8081/',
+                        groupId: 'com.roboshop',
+                        version: ${packageVersion},
+                        repository: 'Catalogue',
+                        credentialsId: 'CredentialsId',
+                        artifacts: [
+                            [artifactId: Catalogue,
+                            classifier: '',
+                            file: 'catalogue-' + version + '.zip',
+                            type: 'zip']
+                        ]
+                    )
+                }
+            }
+        }
+    }
+
+    post{
+        always{
+            echo 'Cleaning Workspace'
+            deleteDir() //Once deployment is done it is mandate to clean the wrokspace directory as a best practice.
+        }
+    }
+}
+```
