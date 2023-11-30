@@ -462,6 +462,175 @@ pipeline {
     }
 }
 ```
+# SHARED LIBRARIES #
+* Just like methods we can write pipeline or steps to execute inside a stage and call them inside the pipeline to reuse the code.
+
+### File Structure for Shared Libraries ###
+```
+(root)
++- src                     # Groovy source files
+|   +- org
+|       +- foo
+|           +- Bar.groovy  # for org.foo.Bar class
++- vars
+|   +- foo.groovy          # for global 'foo' variable
+|   +- foo.txt             # help for 'foo' variable
++- resources               # resource files (external libraries only)
+|   +- org
+|       +- foo
+|           +- bar.json    # static helper data for org.foo.Bar
+```
+```
+// vars/pipelineDecission.groovy
+
+#!groovy
+
+def decidePipleine(Map configMap){
+    application = configMap.get("application")
+    //# here we are getting nodeJSVM
+    switch(application) {
+        case 'nodeJSVM':
+            echo "application is Node JS and VM based"
+            nodeJSVMCI(configMap)
+            break
+        case 'nodeJSEKS':
+            echo "application is Node JS and VM based"
+            nodeJSEKS(configMap)
+            break
+        case 'JavaVM':
+            javaVMCI(configMap)
+            break
+        case 'javaEKS':
+            javaEKS(configMap)
+            break
+        default:
+            error "Un recognised application"
+            break
+    }
+}
+```
+
+```
+// vars/nodeJSVMCI.groovy
+
+def call(Map configMap){
+    // mapName.get("key-name")
+    def component = configMap.get("component")
+    echo "component is : $component"
+    pipeline {
+        agent { node { label 'AGENT-1' } }
+        environment{
+            //here if you create any variable you will have global access, since it is environment no need of def
+            packageVersion = ''
+        }
+        
+        stages {
+            stage('Get version'){
+                steps{
+                    script{
+                        def packageJson = readJSON(file: 'package.json')
+                        packageVersion = packageJson.version
+                        echo "version: ${packageVersion}"
+                    }
+                }
+            }
+            stage('Install depdencies') {
+                steps {
+                    sh 'npm install'
+                }
+            }
+            stage('Unit test') {
+                steps {
+                    echo "unit testing is done here"
+                }
+            }
+            //sonar-scanner command expect sonar-project.properties should be available
+            stage('Sonar Scan') {
+                steps {
+                    echo "Sonar scan done"
+                }
+            }
+            stage('Build') {
+                steps {
+                    sh 'ls -ltr'
+                    sh "zip -r ${component}.zip ./* --exclude=.git --exclude=.zip"
+                }
+            }
+            stage('SAST') {
+                steps {
+                    echo "SAST Done"
+                    echo "package version: $packageVersion"
+                }
+            }
+            //install pipeline utility steps plugin, if not installed
+            stage('Publish Artifact') {
+                steps {
+                    nexusArtifactUploader(
+                        nexusVersion: 'nexus3',
+                        protocol: 'http',
+                        nexusUrl: '172.31.86.20:8081/',
+                        groupId: 'com.roboshop',
+                        version: "$packageVersion",
+                        repository: "${component}",
+                        credentialsId: 'nexus-auth',
+                        artifacts: [
+                            [artifactId: "${component}",
+                            classifier: '',
+                            file: "${component}.zip",
+                            type: 'zip']
+                        ]
+                    )
+                }
+            }
+
+            //here I need to configure downstram job. I have to pass package version for deployment
+            // This job will wait until downstrem job is over
+            // by default when a non-master branch CI is done, we can go for DEV development
+            stage('Deploy') {
+                steps {
+                    script{
+                        echo "Deployment"
+                        def params = [
+                            string(name: 'version', value: "$packageVersion"),
+                            string(name: 'environment', value: "dev")
+                        ]
+                        build job: "../${component}-deploy", wait: true, parameters: params
+                    }
+                }
+            }
+        }
+
+        post{
+            always{
+                echo 'cleaning up workspace'
+                //deleteDir()
+            }
+        }
+    }
+}
+```
+```
+#!groovy
+// it means the libraries will be downloaded and accessible at run time
+@Library('roboshop-shared-library') _
+
+// variable
+def configMap = [
+    application: "nodeJSVM",
+    component: "catalogue"
+]
+env
+
+// this is .groovy file name and function inside it
+//if not master then trigger pipeline
+if ( ! env.BRANCH_NAME.equalsIgnoreCase('master')){
+    pipelineDecission.decidePipleine(configMap)
+}
+else{
+    echo "master PROD deployment should happen through CR"
+}
+```
+
 # SONARQUBE #
 Sonarqube is used for static source code analysis.
 
