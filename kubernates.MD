@@ -45,5 +45,19 @@ kubectl run <pod_name> --image=<image_name> --dry-run=client -o yaml > My_Manies
 ```
 kubens <name-space>
 ```
+```
+kubectl config set-context --current --namespace=<name>
+```
 
+* ## To create quota in namespace
+```
+kubectl create quota <quota-name> --hard pod=3,cpu=100,memory=500mi -n <namespace>
+```
 
+# Troubleshooting
+
+* If pod is not creating we can use __kubectl describe pod__ to find pod details and events.
+
+* Check for all the events happening on the kubernates cluster using __kubectl get events__
+
+* There might also be some issue with application side. To check application logs use __kubectl logs pod__

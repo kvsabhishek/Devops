@@ -743,3 +743,45 @@ pipeline {
     }
 }
 ```
+# To clone git repo and build docker image
+```
+pipeline {
+    agent any
+
+    environment {
+        // Define environment variables if needed
+        DOCKER_REGISTRY = "your-docker-registry"
+        IMAGE_NAME = "your-image-name"
+        IMAGE_TAG = "latest"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout your Git repository
+                git branch: 'main', credentialsId: 'your-git-credentials-id', url: 'https://github.com/your-username/your-repo.git'
+            }
+        }
+
+        stage('Build and Push Docker Image') {
+            steps {
+                script {
+                    // Build Docker image
+                    def dockerImage = docker.build("${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}")
+
+                    // Push Docker image to the registry
+                    docker.withRegistry('https://${DOCKER_REGISTRY}' 'docker-credentials-id') {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Docker image built and pushed successfully!'
+        }
+    }
+}
+```
